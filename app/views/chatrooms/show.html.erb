@@ -1,0 +1,16 @@
+<%= turbo_stream_from dom_id(@chatroom) %>
+<%= turbo_stream_from 'messages' %>
+
+<div class="container mx-auto flex py-10 h-screen">
+  <%= render 'chatrooms_list', chatrooms: @chatrooms %>
+  <div class="messages w-2/3 p-6">
+    <div class="h-5/6">
+      <%= turbo_frame_tag 'messages' do %>
+        <% @chatroom.messages.each do |message| %>
+          <%= render 'message', message: message %>
+        <% end %>
+      <% end %>
+    </div>
+    <%= render 'messages/form', message: Message.new %>
+  </div>
+</div>

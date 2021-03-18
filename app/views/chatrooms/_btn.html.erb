@@ -1,0 +1,6 @@
+<div class="chatroom-btn border-2 rounded p-6 mb-2 flex justify-between <%= chatroom.id.to_s == params[:id] ? 'border-blue-300 bg-blue-500 text-white' : 'border-blue-300' %>">
+  <%= chatroom.name %>
+  <% if new_message %>
+    <span class="text-white bg-red-500 text-xs flex justify-center items-center rounded-md p-2">new</span>
+  <% end %>
+</div>

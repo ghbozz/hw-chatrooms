@@ -1,0 +1,8 @@
+<%= turbo_frame_tag dom_id(message) do %>
+  <div class="border-2 border-blue-300 rounded p-6 mb-2 flex justify-between">
+    <%= message.content %>
+    <%= link_to message_path(message), method: :delete do %>
+      X
+    <% end %>
+  </div>
+<% end %>
