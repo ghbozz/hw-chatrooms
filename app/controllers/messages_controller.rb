@@ -13,6 +13,17 @@ class MessagesController < ApplicationController
     end
   end
 
+  def edit
+    @message = Message.find(params[:id])
+    @chatroom = @message.chatroom
+  end
+
+  def update
+    @message = Message.find(params[:id])
+    @message.update(message_params)
+    redirect_to chatroom_path(@message.chatroom)
+  end
+
   def destroy
     Message.find(params[:id]).destroy
   end

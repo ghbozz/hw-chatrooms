@@ -1,5 +1,14 @@
 <%= turbo_frame_tag dom_id(message), class: me ? 'self-end w-auto' : 'self-start w-auto' do %>
-  <div class="border-2 rounded p-6 mb-2 flex justify-between <%= me ? 'border-green-300 bg-green-300 text-white' : 'border-blue-300 bg-blue-300 text-white' %>">
-    <%= message.content %>
+  <div class="relative border-2 rounded p-6 mb-2 flex justify-between <%= me ? 'border-green-300 bg-green-300 text-white' : 'border-blue-300 bg-blue-300 text-white' %>">
+    <% if me %>
+      <span class="absolute top-0 right-2"><%= link_to 'x', message_path(message), method: :delete %></span>
+      <span class="absolute top-2 left-2 text-xs">
+        <%= link_to 'edit', edit_message_path(message), data: { turbo_frame: 'edit_message_form' } %>
+      </span>
+    <% end %>
+    <div>
+      <p><%= message.content %></p>
+      <small class="text-xs"><%= message.user.email %></small>
+    </div>
   </div>
 <% end %>

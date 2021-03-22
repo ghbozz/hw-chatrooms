@@ -5,5 +5,5 @@ Rails.application.routes.draw do
     resources :messages, only: %i(create)
   end
 
-  resources :messages, only: %i(destroy)
+  resources :messages, only: %i(edit update destroy)
 end

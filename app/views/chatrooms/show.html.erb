@@ -7,7 +7,7 @@
     <div class="h-5/6">
       <%= turbo_frame_tag 'messages', class: 'flex flex-col' do %>
         <% @chatroom.messages.each do |message| %>
-          <%= render 'message', message: message, me: message.user == current_user ? true : false %>
+          <%= render 'message', message: message, me: message.user == current_user %>
         <% end %>
       <% end %>
     </div>

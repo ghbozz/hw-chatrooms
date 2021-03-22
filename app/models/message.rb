@@ -10,10 +10,9 @@ class Message < ApplicationRecord
     User.all.each do |user|
       broadcast_append_to "chatroom_#{chatroom.id}_user_#{user.id}", 
       partial: "chatrooms/message",
-      locals: { me: self.user.id == user.id ? true : false }
+      locals: { me: self.user.id == user.id }
     end
   }
-
 
   after_create_commit { 
     broadcast_replace_to "chatrooms_list", 
@@ -23,4 +22,12 @@ class Message < ApplicationRecord
   }
   
   after_destroy_commit { broadcast_remove_to "messages" }
+
+  after_update_commit {
+    User.all.each do |user|
+      broadcast_replace_to "messages", 
+      partial: "chatrooms/message",
+      locals: { me: self.user.id == user.id ? true : false }
+    end
+  }
 end
