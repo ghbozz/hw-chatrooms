@@ -4,9 +4,7 @@ class Message < ApplicationRecord
 
   validates :content, presence: true
 
-  # after_create_commit { broadcast_append_to "chatroom_#{chatroom.id}", partial: "chatrooms/message" }
-
-  after_create_commit  -> {
+  after_create_commit -> {
     User.all.each do |user|
       broadcast_append_to "chatroom_#{chatroom.id}_user_#{user.id}", 
       partial: "chatrooms/message",
@@ -23,7 +21,7 @@ class Message < ApplicationRecord
   
   after_destroy_commit { broadcast_remove_to "messages" }
 
-  after_update_commit {
+  after_update_commit -> {
     User.all.each do |user|
       broadcast_replace_to "chatroom_#{chatroom.id}_user_#{user.id}", 
       partial: "chatrooms/message",
