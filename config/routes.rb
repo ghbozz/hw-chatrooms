@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'chatrooms/index'
+  devise_for :users
+
   resources :chatrooms, only: %i(index new create show) do
     resources :messages, only: %i(create)
   end

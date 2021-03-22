@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   def create
-    @message = Message.new(message_params.merge(chatroom_id: params[:chatroom_id]))
+    @message = Message.new(
+      message_params.merge(chatroom_id: params[:chatroom_id], user: current_user)
+    )
     
     respond_to do |format|
       if @message.save
