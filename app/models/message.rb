@@ -25,9 +25,9 @@ class Message < ApplicationRecord
 
   after_update_commit {
     User.all.each do |user|
-      broadcast_replace_to "messages", 
+      broadcast_replace_to "chatroom_#{chatroom.id}_user_#{user.id}", 
       partial: "chatrooms/message",
-      locals: { me: self.user.id == user.id ? true : false }
+      locals: { me: self.user.id == user.id }
     end
   }
 end
